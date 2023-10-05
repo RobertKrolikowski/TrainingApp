@@ -11,38 +11,18 @@ namespace TrainingApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public UserController(IConfiguration configuration)
+        private readonly TrainingAppContext _db;
+
+        public UserController(IConfiguration configuration, TrainingAppContext db)
         {
             _configuration = configuration;
+            _db = db;
         }
+
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"SELECT *
-	                    FROM public.""user""";
-            string sqlDataSource = _configuration.GetConnectionString("dockerDB");
-            NpgsqlDataReader reader;
-            List<User> users = new List<User>();
-            using (NpgsqlConnection connection = new NpgsqlConnection(sqlDataSource))
-            {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand(query,connection))
-                {
-                    reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        users.Add(new User()
-                        {
-                            ID = Int32.Parse(reader[0].ToString()),
-                            FirstName = reader[1].ToString(),
-                            LastName = reader[2].ToString()
-                        });
-
-                    }
-                    reader.Close();
-                    connection.Close();
-                }
-            }
+            var users = _db.Users.ToList();
             return new JsonResult(users);
         }
     }
