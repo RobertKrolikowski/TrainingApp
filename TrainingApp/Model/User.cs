@@ -11,5 +11,11 @@ namespace TrainingApp.Model
         public string FirstName { get; set; }
         [Column("last_name")]
         public string LastName { get; set; }
+        [Column("age")]
+        public int Age { get; set; }
+        [Column("email")]
+        public string Email { get; set; }
+        [Column("trainings")]
+        public List<Workout> Trainings { get; set; }
     }
 }
