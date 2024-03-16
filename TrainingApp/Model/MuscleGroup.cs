@@ -14,6 +14,6 @@ namespace TrainingApp.Model
         public string Name { get; set; }
         [StringLength(250)]
         [Column("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

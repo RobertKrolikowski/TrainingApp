@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
 namespace TrainingApp.Model
@@ -8,6 +9,7 @@ namespace TrainingApp.Model
     {
         [Column("id")]
         public int Id { get; set; }
+        [StringLength(50)]
         [Column("name")]
         public string? Name { get; set; }
         [Column("workoutStart")]
@@ -16,6 +18,7 @@ namespace TrainingApp.Model
         public DateTime? WorkoutEnd { get; set; }
         [Column("series")]
         public List<Serie> Series { get; set; } = new List<Serie>();
+        [StringLength(250)]
         [Column("description")]
         public string? Description { get; set; }
     }
